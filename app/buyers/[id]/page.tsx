@@ -89,7 +89,7 @@ export default async function BuyerDetailsPage({
     <main className="min-h-screen bg-[#09090c] text-white">
       <Sidebar role={currentUser?.role ?? null} />
 
-      <div className="ml-[84px] min-h-screen">
+      <div className="min-h-screen pb-24 md:ml-[84px] md:pb-0">
         <Topbar />
 
         <div className="mx-auto max-w-[1400px] px-6 py-8 lg:px-10">

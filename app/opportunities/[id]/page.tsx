@@ -59,7 +59,7 @@ export default async function OpportunityDetailsPage({
     <main className="min-h-screen bg-[#0b0b0f] text-white">
       <Sidebar role={currentUser?.role ?? null} />
 
-      <div className="ml-[84px] min-h-screen">
+      <div className="min-h-screen pb-24 md:ml-[84px] md:pb-0">
         <Topbar />
 
         <div className="mx-auto max-w-[1450px] px-6 py-8 lg:px-10">

@@ -20,12 +20,12 @@ export async function Topbar() {
   const user = await getCurrentUser();
 
   return (
-    <header className="flex h-[82px] z-50 items-center justify-between border-b border-white/[0.07] bg-[#0b0b0f]/80 px-6 backdrop-blur-xl lg:px-8">
+    <header className="flex h-[72px] items-center justify-between border-b border-white/[0.07] bg-[#0b0b0f]/80 px-4 backdrop-blur-xl sm:px-6 lg:px-8">
       {/* Search */}
       <form
         action="/opportunities"
         method="GET"
-        className="relative w-full max-w-xl"
+        className="relative w-full max-w-[180px] sm:max-w-sm lg:max-w-xl"
       >
         <Search
           size={18}

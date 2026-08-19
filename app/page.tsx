@@ -71,7 +71,7 @@ export default async function Home() {
     <main className="min-h-screen bg-[#09090c] text-white">
       <Sidebar role={user?.role ?? null} />
 
-      <div className="ml-[84px] min-h-screen">
+      <div className="min-h-screen md:ml-[84px]">
         <Topbar />
 
         <div className="px-8 py-8">
@@ -92,19 +92,18 @@ export default async function Home() {
                     N5Deal Marketplace
                   </p>
 
-                  <h1 className="max-w-3xl text-[44px] font-semibold leading-[1.05] tracking-[-0.04em] text-white md:text-[58px]">
+                  <h1 className="max-w-3xl text-[38px] font-semibold leading-[0.98] tracking-[-0.045em] sm:text-[46px] md:text-[54px] lg:text-[58px]">
                     Global M&A Investment Opportunities
                   </h1>
 
-                  <p className="mt-5 max-w-xl text-[15px] leading-7 text-zinc-400">
-                    Discover acquisition opportunities matched to your
-                    investment criteria.
-                  </p>
+                  <h1 className="max-w-3xl text-[38px] font-semibold leading-[0.98] tracking-[-0.045em] sm:text-[46px] md:text-[54px] lg:text-[58px]">
+                    Global M&A Investment Opportunities
+                  </h1>
                 </div>
 
                 <Link
                   href="/opportunities"
-                  className="inline-flex h-12 items-center justify-center rounded-2xl border border-white/10 bg-white px-6 text-sm font-semibold text-black transition hover:bg-zinc-200"
+                  className="mt-7 inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-white px-5 text-center text-sm font-semibold text-black transition hover:bg-zinc-200 sm:w-auto lg:mt-0"
                 >
                   Explore all opportunities
                 </Link>

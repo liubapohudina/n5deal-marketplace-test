@@ -69,7 +69,7 @@ export default async function SellerPage() {
   return (
     <main className="min-h-screen bg-[#0b0b0f] text-white">
       <div className="mx-auto max-w-[1450px] px-6 py-10 lg:px-10">
-        <div className="mb-8 inline-flex items-center gap-1 rounded-2xl border border-white/[0.08] bg-white/[0.03] p-1">
+        <div className="mb-8 flex w-full flex-col gap-1 rounded-2xl border border-white/[0.08] bg-white/[0.03] p-1 sm:w-auto sm:flex-row sm:items-center">
           <Link
             href="/"
             className="inline-flex h-10 items-center gap-2 rounded-xl px-4 text-sm font-medium text-zinc-400 transition hover:bg-white/[0.06] hover:text-white"
