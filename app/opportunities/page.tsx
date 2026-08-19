@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 
 import { prisma } from '@/lib/prisma';
+import { getCurrentUser } from '@/lib/currentUser';
 import { Sidebar } from '@/components/dashboard/Sidebar';
 import { Topbar } from '@/components/dashboard/Topbar';
 
@@ -53,7 +54,7 @@ export default async function OpportunitiesPage({
   searchParams: Promise<SearchParams>;
 }) {
   const params = await searchParams;
-
+  const currentUser = await getCurrentUser();
   const search = params.search?.trim() ?? '';
   const industry = params.industry?.trim() ?? '';
   const location = params.location?.trim() ?? '';
