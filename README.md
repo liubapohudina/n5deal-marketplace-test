@@ -873,16 +873,16 @@ For the submitted project, document the actual seeded credentials here before de
 
 ```text
 Buyer
-Email: <buyer-demo-email>
-Password: <buyer-demo-password>
+Email: buyer@n5deal.demo
+Password: N5DealDemo123!
 
 Seller
-Email: <seller-demo-email>
-Password: <seller-demo-password>
+Email: seller@n5deal.demo
+Password: N5DealDemo123!
 
 Manager
-Email: <manager-demo-email>
-Password: <manager-demo-password>
+Email: manager@n5deal.demo
+Password: N5DealDemo123!
 ```
 
 > Important: demo passwords should only be credentials created specifically for the test/demo environment. Never publish production credentials.
