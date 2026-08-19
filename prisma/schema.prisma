@@ -1,0 +1,228 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+enum UserRole {
+  BUYER
+  SELLER
+  MANAGER
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum AssetStatus {
+  DRAFT
+  PUBLISHED
+  SUSPENDED
+}
+
+enum AssetType {
+  BUSINESS
+  REAL_ESTATE
+  FINANCIAL_ASSET
+  OTHER
+}
+
+enum ContactStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+}
+
+enum ModerationActionType {
+  SUSPEND
+  UNSUSPEND
+}
+model User {
+  id            String     @id @default(cuid())
+  email         String     @unique
+  emailVerified Boolean    @default(false)
+  name          String
+  image         String?
+
+  company   String?
+  role      UserRole
+  status    UserStatus @default(ACTIVE)
+  location  String?
+  bio       String?
+  avatarUrl String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  buyerProfile BuyerProfile?
+  assets       Asset[]
+
+  sentContacts     ContactRequest[] @relation("ContactSender")
+  receivedContacts ContactRequest[] @relation("ContactRecipient")
+
+  moderationActions ModerationAction[] @relation("ManagerActions")
+  moderatedUser     ModerationAction[] @relation("ModeratedUser")
+
+  sessions Session[]
+  accounts Account[]
+
+  @@index([role])
+  @@index([status])
+  @@index([location])
+}
+model BuyerProfile {
+  id     String @id @default(cuid())
+  userId String @unique
+
+  investmentThesis String?
+
+  minDealSize Decimal? @db.Decimal(15, 2)
+  maxDealSize Decimal? @db.Decimal(15, 2)
+
+  industries       String[]
+  geographies      String[]
+  investmentTypes  String[]
+  preferredDealTypes String[]
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([minDealSize, maxDealSize])
+}
+
+model Asset {
+  id       String      @id @default(cuid())
+  sellerId String
+  status   AssetStatus @default(DRAFT)
+
+  title       String
+  description String
+
+  assetType AssetType
+
+  industry  String
+  location  String
+
+  askingPrice Decimal? @db.Decimal(15, 2)
+  revenue     Decimal? @db.Decimal(15, 2)
+  ebitda      Decimal? @db.Decimal(15, 2)
+
+  employees Int?
+  foundedYear Int?
+
+  dealTypes String[]
+
+  investmentHighlights String[]
+
+  aiMatchScore Int?
+
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  seller User @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+
+  contactRequests ContactRequest[]
+
+  @@index([sellerId])
+  @@index([status])
+  @@index([industry])
+  @@index([location])
+  @@index([assetType])
+}
+
+model ContactRequest {
+  id String @id @default(cuid())
+
+  senderId    String
+  recipientId String
+  assetId     String?
+
+  message String
+  status  ContactStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sender    User  @relation("ContactSender", fields: [senderId], references: [id], onDelete: Cascade)
+  recipient User  @relation("ContactRecipient", fields: [recipientId], references: [id], onDelete: Cascade)
+
+  asset Asset? @relation(fields: [assetId], references: [id], onDelete: SetNull)
+
+  @@index([senderId])
+  @@index([recipientId])
+  @@index([assetId])
+  @@index([status])
+}
+
+model ModerationAction {
+  id String @id @default(cuid())
+
+  managerId String
+  userId    String
+
+  action ModerationActionType
+  reason String?
+
+  createdAt DateTime @default(now())
+
+  manager       User @relation("ManagerActions", fields: [managerId], references: [id], onDelete: Cascade)
+  moderatedUser User @relation("ModeratedUser", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([managerId])
+  @@index([userId])
+  @@index([action])
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ipAddress String?
+  userAgent String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Account {
+  id                    String   @id
+  accountId             String
+  providerId            String
+  userId                String
+  issuer                String?
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+}
