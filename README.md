@@ -99,6 +99,9 @@ Buyers can:
 - Browse published opportunities
 - Search marketplace opportunities
 - Filter opportunities
+- View personalized opportunity matches
+- See deterministic match scores based on investment criteria
+- See why each opportunity matches the Buyer profile
 - View individual opportunities
 - Send inquiries to sellers
 - Receive inquiries from sellers
@@ -107,6 +110,9 @@ Buyers can:
 - Access the shared Messages view
 - Update account information
 - Change their password
+- View personalized opportunity matches
+- See deterministic match scores based on investment criteria
+- See why each opportunity matches the Buyer profile
 
 Main routes:
 
@@ -116,6 +122,7 @@ Main routes:
 /buyer/inquiries
 /opportunities
 /opportunities/[id]
+/matches
 /messages
 /settings/account
 /settings/security
@@ -650,6 +657,7 @@ A simplified overview:
 ```text
 app/
 ├── actions/
+├── matches/
 │
 ├── api/
 │   ├── auth/
@@ -1156,20 +1164,21 @@ notification center
 email notifications
 ```
 
-### Dynamic matching
+### Advanced AI matching
 
-Replace the stored/demo AI match score with a real matching system based on:
+The current implementation includes deterministic opportunity matching based on Buyer investment criteria.
 
-```text
-Buyer industries
-Buyer geographies
-Deal size
-Investment type
-Deal type
-Asset characteristics
-```
+With more time, I would extend this into a richer recommendation system using:
 
-The first version could be deterministic scoring before introducing semantic/AI matching.
+- weighted and configurable criteria
+- semantic similarity between investment thesis and asset description
+- financial metric normalization
+- Buyer interaction history
+- saved/viewed opportunities
+- explainable AI-generated match reasoning
+- ranking feedback
+
+The deterministic scoring system would remain as a transparent baseline and could be combined with semantic ranking rather than completely replaced.
 
 ### Pagination
 
@@ -1340,6 +1349,9 @@ Seller asset management
 Buyer → Seller inquiry
 Seller → Buyer inquiry
 Accept/Decline flow
+Buyer personalized matches
+Match score calculation
+Buyer-only /matches protection
 
 Manager user moderation
 Manager asset moderation

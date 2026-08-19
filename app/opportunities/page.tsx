@@ -179,7 +179,7 @@ export default async function OpportunitiesPage({
 
   return (
     <main className="min-h-screen bg-[#09090c] text-white">
-      <Sidebar />
+      <Sidebar role={currentUser?.role ?? null} />
 
       <div className="ml-[84px] min-h-screen">
         <Topbar />

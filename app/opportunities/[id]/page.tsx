@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 
 import { prisma } from '@/lib/prisma';
+import { getCurrentUser } from '@/lib/currentUser';
 import { Sidebar } from '@/components/dashboard/Sidebar';
 import { Topbar } from '@/components/dashboard/Topbar';
 import { ContactSellerForm } from '@/components/opportunities/ContactSellerForm';
@@ -33,6 +34,7 @@ export default async function OpportunityDetailsPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  const currentUser = await getCurrentUser();
 
   const asset = await prisma.asset.findFirst({
     where: {
@@ -55,7 +57,7 @@ export default async function OpportunityDetailsPage({
 
   return (
     <main className="min-h-screen bg-[#0b0b0f] text-white">
-      <Sidebar />
+      <Sidebar role={currentUser?.role ?? null} />
 
       <div className="ml-[84px] min-h-screen">
         <Topbar />

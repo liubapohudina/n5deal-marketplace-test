@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
+import { getCurrentUser } from '@/lib/currentUser';
 import { Sidebar } from '@/components/dashboard/Sidebar';
 import { Topbar } from '@/components/dashboard/Topbar';
 import { StatsCard } from '@/components/dashboard/StatsCard';
@@ -21,6 +22,7 @@ function formatCurrency(value: unknown) {
 }
 
 export default async function Home() {
+  const user = await getCurrentUser();
   const assets = await prisma.asset.findMany({
     where: {
       status: 'PUBLISHED',
@@ -67,7 +69,7 @@ export default async function Home() {
   });
   return (
     <main className="min-h-screen bg-[#09090c] text-white">
-      <Sidebar />
+      <Sidebar role={user?.role ?? null} />
 
       <div className="ml-[84px] min-h-screen">
         <Topbar />

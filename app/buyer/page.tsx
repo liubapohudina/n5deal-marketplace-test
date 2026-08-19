@@ -110,6 +110,13 @@ export default async function BuyerPage() {
             <Search size={15} />
             Opportunities
           </Link>
+          <Link
+            href="/matches"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-violet-600 px-5 text-sm font-semibold text-white transition hover:bg-violet-500"
+          >
+            <Sparkles size={16} />
+            View my matches
+          </Link>
         </div>
 
         {/* Header */}
